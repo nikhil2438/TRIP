@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import NavBar from './components/NavBar';
+import NavBar from './NavBar';
 import HeaderTabs from './components/HeaderTabs';
 import Hero from './components/Hero';
 import SearchForm from './components/SearchForm';
