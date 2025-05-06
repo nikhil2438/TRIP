@@ -1,24 +1,49 @@
 import React, { useState } from 'react';
 
 const NavBar = () => {
-  const [activeForm, setActiveForm] = useState(""); // Track which form to show: 'login', 'register'
+  const [activeForm, setActiveForm] = useState('');
+  const [menuOpen, setMenuOpen] = useState(false); // State for toggling the menu
 
-  const handleLoginClick = () => setActiveForm('login'); // Trigger Login form
-  const handleRegisterClick = () => setActiveForm('register'); // Trigger Register form
-  const closeForm = () => setActiveForm(""); // Close the form (reset to empty state)
+  const handleLoginClick = () => setActiveForm('login');
+  const handleRegisterClick = () => setActiveForm('register');
+  const closeForm = () => setActiveForm('');
+
+  const toggleMenu = () => setMenuOpen((prevState) => !prevState);
 
   return (
     <nav className="bg-blue-800 text-white p-4">
-      <ul className="flex justify-between">
-        <li className="font-bold">MakeMyTrip</li>
-        <li className="space-x-4">
-          <a href="#home">Home</a>
-          <a href="#services">Services</a>
-          <a href="#contact">Contact</a>
-          <button onClick={handleLoginClick} className="bg-blue-600 p-2 rounded">Login</button>
-          <button onClick={handleRegisterClick} className="bg-blue-600 p-2 rounded">Register</button>
-        </li>
-      </ul>
+      <div className="flex justify-between items-center">
+        <div className="font-bold">MakeMyTrip</div>
+        
+        {/* Hamburger icon */}
+        <button onClick={toggleMenu} className="lg:hidden text-white">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+
+        {/* Menu Items */}
+        <ul
+          className={`lg:flex space-x-4 ${menuOpen ? 'block' : 'hidden'} lg:block`}
+        >
+          <li><a href="#home">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><button onClick={handleLoginClick} className="bg-blue-600 p-2 rounded">Login</button></li>
+          <li><button onClick={handleRegisterClick} className="bg-blue-600 p-2 rounded">Register</button></li>
+        </ul>
+      </div>
 
       {/* Conditional rendering based on activeForm state */}
       {activeForm === 'login' && <LoginForm closeForm={closeForm} />}
@@ -29,8 +54,8 @@ const NavBar = () => {
 
 const LoginForm = ({ closeForm }) => {
   const [loginData, setLoginData] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const handleChange = (e) => {
@@ -43,9 +68,9 @@ const LoginForm = ({ closeForm }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    localStorage.setItem("loginData", JSON.stringify(loginData));
-    alert("Login data saved to localStorage!");
-    console.log("Saved Login data:", loginData);
+    localStorage.setItem('loginData', JSON.stringify(loginData));
+    alert('Login data saved to localStorage!');
+    console.log('Saved Login data:', loginData);
     closeForm();
   };
 
@@ -89,9 +114,9 @@ const LoginForm = ({ closeForm }) => {
 
 const RegisterForm = ({ closeForm }) => {
   const [registerData, setRegisterData] = useState({
-    name: "",
-    email: "",
-    password: "",
+    name: '',
+    email: '',
+    password: '',
   });
 
   const handleChange = (e) => {
@@ -104,9 +129,9 @@ const RegisterForm = ({ closeForm }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    localStorage.setItem("registerData", JSON.stringify(registerData));
-    alert("Registration data saved to localStorage!");
-    console.log("Saved Register data:", registerData);
+    localStorage.setItem('registerData', JSON.stringify(registerData));
+    alert('Registration data saved to localStorage!');
+    console.log('Saved Register data:', registerData);
     closeForm();
   };
 
@@ -158,4 +183,3 @@ const RegisterForm = ({ closeForm }) => {
 };
 
 export default NavBar;
- 
